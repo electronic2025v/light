@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LIGHT — Bank Reconciliation Engine</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-inner">
+      <div>
+        <div class="logo">LIGHT</div>
+        <div class="tagline">Bank Reconciliation Engine</div>
+      </div>
+      <div class="header-meta">AI-powered · June 2025</div>
+    </div>
+  </header>
+
+  <!-- METRICS BAR -->
+  <div class="metrics-bar">
+    <div class="metric">
+      <div class="metric-num" id="m-total">0</div>
+      <div class="metric-label">Total</div>
+    </div>
+    <div class="metric">
+      <div class="metric-num" id="m-matched">0</div>
+      <div class="metric-label">Matched</div>
+    </div>
+    <div class="metric">
+      <div class="metric-num" id="m-probable">0</div>
+      <div class="metric-label">Probable</div>
+    </div>
+    <div class="metric">
+      <div class="metric-num" id="m-review">0</div>
+      <div class="metric-label">Review</div>
+    </div>
+    <div class="metric">
+      <div class="metric-num" id="m-missing">0</div>
+      <div class="metric-label">Missing</div>
+    </div>
+  </div>
+
+  <!-- MAIN CONTAINER -->
+  <main class="main">
+
+    <!-- TOOLBAR -->
+    <div class="toolbar">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="matched">✅ Matched</button>
+      <button class="filter-btn" data-filter="probable">🔶 Probable</button>
+      <button class="filter-btn" data-filter="review">⚠️ Review</button>
+      <button class="filter-btn" data-filter="missing">❌ Missing</button>
+      <div class="toolbar-right">
+        <button class="icon-btn" id="resetBtn" title="Reset" style="display:none;">↩ Reset</button>
+        <button class="icon-btn" id="exportBtn" title="Export CSV" style="display:none;">⬇ Export CSV</button>
+      </div>
+    </div>
+
+    <!-- UPLOAD ZONE -->
+    <div class="upload-zone" id="uploadZone">
+      <div class="upload-icon">⬆</div>
+      <div class="upload-title">Drop your Excel file here</div>
+      <div class="upload-sub">
+        Needs two sheets: <strong>Banco</strong> and <strong>Contabilidad</strong><br>
+        Columns: <code>id · desc · amt · cur · date</code>
+      </div>
+      <div class="upload-actions">
+        <label class="upload-btn" for="fileInput">Choose file</label>
+        <input type="file" id="fileInput" accept=".xlsx,.xls" />
+        <button class="demo-btn" id="runDemo">▶ Run with sample data</button>
+      </div>
+    </div>
+
+    <!-- RESULTS TABLE -->
+    <div class="table-wrap" id="tableWrap" style="display:none;">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:90px">Bank ID</th>
+            <th style="width:90px">Acc ID</th>
+            <th style="width:120px">Amount</th>
+            <th style="width:80px">Date</th>
+            <th>Bank description</th>
+            <th>Accounting description</th>
+            <th style="width:150px">Status</th>
+            <th style="width:90px">Score</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+      </table>
+    </div>
+
+    <!-- EMPTY STATE -->
+    <div class="empty-state" id="emptyState" style="display:none;">
+      No rows match this filter.
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    LIGHT · Bank Reconciliation Engine · Built with AI matching
+  </footer>
+
+  <script src="data.js"></script>
+  <script src="engine.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
